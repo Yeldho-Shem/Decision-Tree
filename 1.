@@ -1,0 +1,27 @@
+import numpy as np
+import matplotlib.pyplot as plt
+import pandas as pd
+from sklearn import tree
+import pydotplus
+from sklearn.tree import DecisionTreeRegressor
+
+dataset = pd.read_csv('Sales.csv')
+
+dataset.head()
+
+x = dataset.iloc[:, :-1].values
+
+y = dataset.iloc[:, -1].values
+
+y = y.reshape(len(y),1)
+
+regr = DecisionTreeRegressor(random_state = 0)
+regr.fit(x,y)
+
+y_pred = regr.predict(x)
+
+plt.scatter(x, y, color = 'pink')
+plt.plot(x, regr.predict(x), color = 'blue')
+plt.show()
+
+tree.plot_tree(regr)
